@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝑹𝑨𝑰𝑵𝑶 ♡</title>
+    <style>
+        :root {
+            --primary-bg: #1a0b2e;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --accent-color: #ff4d6d;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            color: var(--accent-color);
+            animation: floatUp 5s linear infinite;
+            opacity: 0.6;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        #login-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.8s;
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 85%;
+            max-width: 350px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        input[type="password"], input[type="text"], input[type="datetime-local"], input[type="date"], input[type="color"], textarea, input[type="file"] {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border: 1px solid white;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .btn-main {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: transform 0.1s;
+        }
+
+        .btn-main:active {
+            transform: scale(0.97);
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            margin: 2px;
+        }
+
+        .btn-edit { background: #3a86ff; }
+        .btn-delete { background: #e63946; }
+
+        #main-content { display: none; padding-bottom: 100px; position: relative; z-index: 1; }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .main-photo, .media-item { width: 100%; border-radius: 15px; margin-bottom: 15px; max-height: 400px; object-fit: cover; }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .counter-item {
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .counter-num { font-size: 1.5rem; font-weight: bold; display: block; }
+
+        .flip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 95%;
+        }
+
+        .flip-card { height: 150px; perspective: 1000px; }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card.active .flip-inner { transform: rotateY(180deg); }
+
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1.2rem;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .flip-back { transform: rotateY(180deg); background: rgba(255, 77, 109, 0.2); }
+
+        #music-player {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: rgba(20, 10, 40, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2000;
+            border: 1px solid var(--accent-color);
+        }
+
+        .play-btn-circle {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .admin-controls {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 2500;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-admin {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--accent-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #1e1e2e;
+            width: 85%;
+            max-width: 480px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-actions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-right: 4px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 12px 0;
+            text-align: right;
+            position: relative;
+        }
+
+        .memory-date {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            background: rgba(255, 77, 109, 0.15);
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .memory-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .memory-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #ddd;
+        }
+
+        .settings-tabs {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid transparent;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .tab-content { display: none; text-align: right; }
+        .tab-content.active { display: block; }
+        .tab-content label { display: block; margin-top: 10px; font-size: 0.9rem; color: #ccc; }
+        .item-row { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
+        .item-row input { margin: 0; }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-container" id="hearts"></div>
+
+    <div class="admin-controls" id="adminBar" style="display: none;">
+        <button class="btn-admin" onclick="triggerVibrate(); openModal('addModal')">➕ إضافة منشور</button>
+        <button class="btn-admin" onclick="triggerVibrate(); openModal('memoriesModal')">📖 دفتر الذكريات</button>
+        <button class="btn-admin" onclick="triggerVibrate(); openModal('settingsModal')">⚙️ الإعدادات</button>
+    </div>
+
+    <!-- شاشة الدخول -->
+    <div id="login-screen">
+        <div class="login-card">
+            <img src="https://i.ibb.co/YBbpdJfQ/image.jpg" class="profile-img" id="loginProfileImg" alt="Nadia">
+            <h2 id="loginTitle">جاهزة 🤔</h2>
+            <p id="loginSubTitle">كل اللي هنا هيفضل بيني وبينك طول العمر ❤️</p>
+            <input type="password" id="passInput" placeholder="اكتبي كلمة السر هنا">
+            <button class="btn-main" id="loginBtnText" onclick="checkPass()">يلا بسرعة افتحي ❤️😂</button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div id="main-content">
+        <div class="section">
+            <div class="glass-card">
+                <div style="background: rgba(255,255,255,0.1); padding: 5px 20px; border-radius: 20px; display: inline-block;" id="topBadgeText">
+                    بحبك 💗✨
+                </div>
+                <h1 style="font-size: 2.5rem; margin: 10px 0;" id="displayHeaderName">𝑁𝐴𝐷𝐼𝐴 ♡</h1>
+                <img src="https://i.ibb.co/YBbpdJfQ/image.jpg" class="main-photo" id="displayMainImg">
+                <p id="mainPhotoSubtext">يوم ما عرفنا بعض كان يوم ولادتي ❤️</p>
+            </div>
+            
+            <div class="glass-card">
+                <h3 id="firstMeetTitle">أول مرة اتقابلنا 💗</h3>
+                <div style="background: #000; padding: 10px; border-radius: 50px; display: inline-block; margin: 10px 0;" id="startDateDisplay">
+                    📅 2026/1/22
+                </div>
+                <h3 id="counterTitle">بدايه عمري معاكي 💗✨</h3>
+                <p id="counterSubtext">هيفضل شغال طول ما احنا مع بعض ❤️</p>
+                <div class="counter-grid" id="timer"></div>
+            </div>
+        </div>
+
+        <div class="section" style="min-height: auto;">
+            <p id="phraseSectionTitle">اقفي هنا شوية متجريش 😂</p>
+            <div id="shortPhrasesContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center;"></div>
+        </div>
+
+        <div class="section">
+            <h3 id="flipGridTitle">دوسي ؏ الكروت بالترتيب 😉💖</h3>
+            <div class="flip-grid" id="flipGridContainer"></div>
+        </div>
+
+        <div class="section">
+            <div id="postsContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center;"></div>
+            <button class="btn-main" style="margin-top: 30px; max-width: 300px;" id="popupBtnTextDisplay" onclick="triggerVibrate(); openModal('msgModal')">لسا مخلصتش دوسي هنا 😂💖🙋🏻‍♂️</button>
+            <p style="margin-top: 50px; opacity: 0.5;" id="footerCredit">❤️ Designed with love by Art club</p>
+        </div>
+    </div>
+
+    <!-- نافذة دفتر الذكريات -->
+    <div id="memoriesModal" class="modal">
+        <div class="modal-content">
+            <h2>📖 دفتر الذكريات الجميلة</h2>
+            <button class="btn-main" style="margin-bottom: 15px;" onclick="triggerVibrate(); openModal('addMemoryModal')">➕ إضافة ذكرى جديدة</button>
+            <div id="memoriesList"></div>
+            <button class="btn-main" style="background:#555;" onclick="triggerVibrate(); closeModal('memoriesModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة ذكرى جديدة -->
+    <div id="addMemoryModal" class="modal">
+        <div class="modal-content">
+            <h3>إضافة ذكرى 📝</h3>
+            <label>عنوان الذكرى:</label>
+            <input type="text" id="memTitle" placeholder="مثلاً: أول خروجة سوا">
+            <label>التاريخ:</label>
+            <input type="date" id="memDate">
+            <label>الحدث / تفاصيل الذكرى:</label>
+            <textarea id="memText" placeholder="اكتب الحدث والتفاصيل هنا..."></textarea>
+            <button class="btn-main" onclick="saveMemory()">حفظ الذكرى</button>
+            <button class="btn-main" style="background:#555;" onclick="triggerVibrate(); closeModal('addMemoryModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة الرسالة القفازة -->
+    <div id="msgModal" class="modal">
+        <div class="modal-content">
+            <div style="font-size: 50px; color: var(--accent-color);">📩</div>
+            <h2 style="margin: 10px 0;" id="popupTitle">𝑁𝑎𝑑𝑖𝑎</h2>
+            <p id="popupText">ربنا يخليكي ليا وميحرمنيش منك ابدا يا ♡ روحي ويارب العمر كلو مع بعض</p>
+            <button class="btn-main" onclick="triggerVibrate(); closeModal('msgModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة منشور جديد -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <h3>إضافة منشور جديد 📸 / 🎥</h3>
+            <label>اختر صورة أو فيديو:</label><br>
+            <input type="file" id="mediaInput" accept="image/*,video/*" style="margin: 10px 0;"><br>
+            <textarea id="captionInput" placeholder="اكتب وصفاً أو كلاماً مع المنشور..."></textarea>
+            <button class="btn-main" onclick="saveNewPost()">نشر الآن</button>
+            <button class="btn-main" style="background:#555;" onclick="triggerVibrate(); closeModal('addModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل منشور -->
+    <div id="editPostModal" class="modal">
+        <div class="modal-content">
+            <h3>تعديل المنشور ✏️</h3>
+            <input type="hidden" id="editPostId">
+            <textarea id="editCaptionInput" placeholder="تعديل النص..."></textarea>
+            <button class="btn-main" onclick="updatePost()">حفظ التعديلات</button>
+            <button class="btn-main" style="background:#555;" onclick="triggerVibrate(); closeModal('editPostModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة الإعدادات -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h3>إعدادات الموقع ⚙️</h3>
+
+            <div class="settings-tabs">
+                <button class="tab-btn active" onclick="triggerVibrate(); switchTab('tab-general')">عام والأمان</button>
+                <button class="tab-btn" onclick="triggerVibrate(); switchTab('tab-home')">الصفحة الرئيسية</button>
+                <button class="tab-btn" onclick="triggerVibrate(); switchTab('tab-music')">الموسيقى 🎵</button>
+                <button class="tab-btn" onclick="triggerVibrate(); switchTab('tab-flips')">الكروت 🎴</button>
+                <button class="tab-btn" onclick="triggerVibrate(); switchTab('tab-phrases')">العبارات 💬</button>
+                <button class="tab-btn" onclick="triggerVibrate(); switchTab('tab-style')">الألوان والرموز 🎨</button>
+            </div>
+
+            <!-- تبويب عام -->
+            <div id="tab-general" class="tab-content active">
+                <label>🔑 كلمة السر:</label>
+                <input type="text" id="setPass">
+
+                <label>عنوان شاشة الدخول:</label>
+                <input type="text" id="setLoginTitle">
+
+                <label>وصف شاشة الدخول:</label>
+                <input type="text" id="setLoginSubTitle">
+
+                <label>نص زر الدخول:</label>
+                <input type="text" id="setLoginBtnText">
+
+                <label>🖼️ اختر صورة الشخصية والرئيسية من الهاتف:</label>
+                <input type="file" id="setImgFile" accept="image/*">
+                <p style="font-size: 0.75rem; color:#aaa; margin:0;">أو ضع رابط صورة خارجي إذا أردت:</p>
+                <input type="text" id="setImgUrl" placeholder="https://...">
+
+                <label>📩 الرسالة المنبثقة الأخيرة:</label>
+                <textarea id="setMsg"></textarea>
+            </div>
+
+            <!-- تبويب الرئيسية -->
+            <div id="tab-home" class="tab-content">
+                <label>✨ الاسم الرئيسي:</label>
+                <input type="text" id="setName">
+
+                <label>الشارة العلوية (Badge):</label>
+                <input type="text" id="setTopBadgeText">
+
+                <label>الوصف أسفل الصورة الرئيسية:</label>
+                <input type="text" id="setMainPhotoSubtext">
+
+                <label>عنوان تاريخ اللقاء:</label>
+                <input type="text" id="setFirstMeetTitle">
+
+                <label>⏳ تاريخ بداية العلاقة:</label>
+                <input type="datetime-local" id="setDate">
+
+                <label>عنوان العداد:</label>
+                <input type="text" id="setCounterTitle">
+
+                <label>الوصف أسفل العداد:</label>
+                <input type="text" id="setCounterSubtext">
+
+                <label>نص الزر الختامي:</label>
+                <input type="text" id="setPopupBtnText">
+            </div>
+
+            <!-- تبويب الموسيقى -->
+            <div id="tab-music" class="tab-content">
+                <label>اسم الأغنية:</label>
+                <input type="text" id="setSongTitle">
+
+                <label>اسم الفنان/المغني:</label>
+                <input type="text" id="setSongArtist">
+
+                <label>🎵 اختر ملف الأغنية من الهاتف (MP3/Audio):</label>
+                <input type="file" id="setSongFile" accept="audio/*">
+                <p style="font-size: 0.75rem; color:#aaa; margin:0;">أو ضع رابط الأغنية إذا أردت:</p>
+                <input type="text" id="setSongSrc" placeholder="رابط الأغنية MP3">
+            </div>
+
+            <!-- تبويب الكروت -->
+            <div id="tab-flips" class="tab-content">
+                <label>عنوان قسم الكروت:</label>
+                <input type="text" id="setFlipGridTitle">
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 10px 0;">
+                <label>إدارة الكروت (الوجه والظهر):</label>
+                <div id="settingsFlipCardsList"></div>
+                <button class="btn-small btn-edit" style="width:100%; margin-top:8px;" onclick="triggerVibrate(); addSettingsFlipCard()">➕ إضافة كارت جديد</button>
+            </div>
+
+            <!-- تبويب العبارات -->
+            <div id="tab-phrases" class="tab-content">
+                <label>عنوان قسم العبارات:</label>
+                <input type="text" id="setPhraseSectionTitle">
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 10px 0;">
+                <label>العبارات القصيرة:</label>
+                <div id="settingsPhrasesList"></div>
+                <button class="btn-small btn-edit" style="width:100%; margin-top:8px;" onclick="triggerVibrate(); addSettingsPhrase()">➕ إضافة عبارة جديدة</button>
+            </div>
+
+            <!-- تبويب المظهر -->
+            <div id="tab-style" class="tab-content">
+                <label>✨ رمز/إيموجي الخلفية الطائر:</label>
+                <input type="text" id="setFloatingEmoji" placeholder="مثلاً: ❤️ أو ✨ أو 🌸" style="font-size: 1.2rem; text-align: center;">
+
+                <label>لون الخلفية الرئيسي:</label>
+                <input type="color" id="setPrimaryBg" style="height:40px;">
+
+                <label>لون التمييز (القلوب والأزرار):</label>
+                <input type="color" id="setAccentColor" style="height:40px;">
+            </div>
+
+            <button class="btn-main" style="margin-top: 15px;" onclick="saveSettings()">حفظ كل الإعدادات</button>
+            <button class="btn-main" style="background:#555;" onclick="triggerVibrate(); closeModal('settingsModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- مشغل الموسيقى -->
+    <div id="music-player">
+        <div style="display: flex; align-items: center;">
+            <div id="musicIcon" style="width: 40px; height: 40px; background: url('https://i.ibb.co/YBbpdJfQ/image.jpg'); background-size: cover; border-radius: 50%; margin-left: 10px;"></div>
+            <div>
+                <div style="font-size: 0.8rem;" id="musicTitleDisplay">حالة حب - اليسا ❤️</div>
+                <div style="font-size: 0.6rem; color: #aaa;">اضغطي للتشغيل</div>
+            </div>
+        </div>
+        <button class="play-btn-circle" onclick="toggleMusic()" id="playBtn">▶</button>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source id="bgMusicSource" src="Albumaty.Com.Elissa.7alet.7ob.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function triggerVibrate() {
+            if ("vibrate" in navigator) {
+                navigator.vibrate(35);
+            }
+        }
+
+        const defaultPosts = [
+            { id: 1, type: 'image', src: 'https://i.ibb.co/zhQ5SS80/image.jpg', text: 'بحبك يا نورعيني ❤️' },
+            { id: 2, type: 'image', src: 'https://i.ibb.co/TMX5Rnwq/image.jpg', text: 'احلي كتكوته 😂💖' },
+            { id: 3, type: 'image', src: 'https://i.ibb.co/cS9pxCgK/image.jpg', text: 'من اجمل اللحظات 🥹💖' },
+            { id: 4, type: 'image', src: 'https://i.ibb.co/LdF5hkDH/image.jpg', text: 'ربنا يدمنا لبعض 🫂💖' },
+            { id: 5, type: 'image', src: 'https://i.ibb.co/Pvh4wrYb/image.jpg', text: 'الشبر ونص بتاعنا😂💖' },
+            { id: 6, type: 'image', src: 'https://i.ibb.co/mVYVd9nW/image.jpg', text: 'كل لحظة في عمري بتمنى تكون معاكي ❤️' }
+        ];
+
+        const defaultFlipCards = [
+            { id: 1, front: '1', back: 'محبتش ♡' },
+            { id: 2, front: '2', back: 'ولا هحب ♡' },
+            { id: 3, front: '3', back: 'ولا هحب حد ♡' },
+            { id: 4, front: '4', back: 'زي ما حبيتك يا اجمل حاجة ف حياتي ❤️' }
+        ];
+
+        const defaultPhrases = [
+            '♡ بحبك ♡',
+            '✨ بموت فيكي ✨',
+            '🔒 بعشقك 🔒',
+            '❤️ يا كل حياتي ❤️'
+        ];
+
+        let settings = JSON.parse(localStorage.getItem('siteSettings')) || {
+            pass: 'love',
+            loginTitle: 'جاهزة 🤔',
+            loginSubTitle: 'كل اللي هنا هيفضل بيني وبينك طول العمر ❤️',
+            loginBtnText: 'يلا بسرعة افتحي ❤️😂',
+            name: '𝑁𝐴𝐷𝐼𝐴 ♡',
+            topBadgeText: 'بحبك 💗✨',
+            mainPhotoSubtext: 'يوم ما عرفنا بعض كان يوم ولادتي ❤️',
+            firstMeetTitle: 'أول مرة اتقابلنا 💗',
+            startDate: '2026-01-22T00:00',
+            counterTitle: 'بدايه عمري معاكي 💗✨',
+            counterSubtext: 'هيفضل شغال طول ما احنا مع بعض ❤️',
+            phraseSectionTitle: 'اقفي هنا شوية متجريش 😂',
+            flipGridTitle: 'دوسي ؏ الكروت بالترتيب 😉💖',
+            popupBtnText: 'لسا مخلصتش دوسي هنا 😂💖🙋🏻‍♂️',
+            mainImg: 'https://i.ibb.co/YBbpdJfQ/image.jpg',
+            popupMsg: 'ربنا يخليكي ليا وميحرمنيش منك ابدا يا ♡ روحي ويارب العمر كلو مع بعض',
+            songTitle: 'حالة حب',
+            songArtist: 'اليسا ❤️',
+            songSrc: 'Albumaty.Com.Elissa.7alet.7ob.mp3',
+            primaryBg: '#1a0b2e',
+            accentColor: '#ff4d6d',
+            floatingEmoji: '❤️'
+        };
+
+        let posts = JSON.parse(localStorage.getItem('sitePosts')) || defaultPosts;
+        let memories = JSON.parse(localStorage.getItem('siteMemories')) || [];
+        let flipCards = JSON.parse(localStorage.getItem('siteFlipCards')) || defaultFlipCards;
+        let phrases = JSON.parse(localStorage.getItem('sitePhrases')) || defaultPhrases;
+
+        const audio = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+
+        function applySettings() {
+            document.getElementById('displayHeaderName').innerText = settings.name;
+            document.getElementById('popupTitle').innerText = settings.name;
+            document.getElementById('displayMainImg').src = settings.mainImg;
+            document.getElementById('loginProfileImg').src = settings.mainImg;
+            document.getElementById('musicIcon').style.backgroundImage = `url('${settings.mainImg}')`;
+            document.getElementById('popupText').innerText = settings.popupMsg;
+
+            document.getElementById('loginTitle').innerText = settings.loginTitle || 'جاهزة 🤔';
+            document.getElementById('loginSubTitle').innerText = settings.loginSubTitle || '';
+            document.getElementById('loginBtnText').innerText = settings.loginBtnText || 'افتحي ❤️';
+
+            document.getElementById('topBadgeText').innerText = settings.topBadgeText || 'بحبك 💗✨';
+            document.getElementById('mainPhotoSubtext').innerText = settings.mainPhotoSubtext || '';
+            document.getElementById('firstMeetTitle').innerText = settings.firstMeetTitle || '';
+            document.getElementById('counterTitle').innerText = settings.counterTitle || '';
+            document.getElementById('counterSubtext').innerText = settings.counterSubtext || '';
+            document.getElementById('phraseSectionTitle').innerText = settings.phraseSectionTitle || '';
+            document.getElementById('flipGridTitle').innerText = settings.flipGridTitle || '';
+            document.getElementById('popupBtnTextDisplay').innerText = settings.popupBtnText || 'دوسي هنا';
+
+            document.getElementById('musicTitleDisplay').innerText = `${settings.songTitle || 'أغنية'} - ${settings.songArtist || ''}`;
+            const audioSrc = document.getElementById('bgMusicSource');
+            if (audioSrc.getAttribute('src') !== settings.songSrc) {
+                audioSrc.setAttribute('src', settings.songSrc);
+                audio.load();
+            }
+
+            document.documentElement.style.setProperty('--primary-bg', settings.primaryBg || '#1a0b2e');
+            document.documentElement.style.setProperty('--accent-color', settings.accentColor || '#ff4d6d');
+
+            const d = new Date(settings.startDate);
+            document.getElementById('startDateDisplay').innerText = `📅 ${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;
+
+            renderPhrases();
+            renderFlipCards();
+        }
+
+        function renderPhrases() {
+            const container = document.getElementById('shortPhrasesContainer');
+            container.innerHTML = '';
+            phrases.forEach(text => {
+                const div = document.createElement('div');
+                div.className = 'glass-card';
+                div.style.padding = '10px';
+                div.innerText = text;
+                container.appendChild(div);
+            });
+        }
+
+        function renderFlipCards() {
+            const container = document.getElementById('flipGridContainer');
+            container.innerHTML = '';
+            flipCards.forEach(cardData => {
+                const card = document.createElement('div');
+                card.className = 'flip-card';
+                card.onclick = function() { triggerVibrate(); this.classList.toggle('active'); };
+                card.innerHTML = `
+                    <div class="flip-inner">
+                        <div class="flip-front">${cardData.front}</div>
+                        <div class="flip-back">${cardData.back}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('postsContainer');
+            container.innerHTML = '';
+            posts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'glass-card';
+                let mediaHTML = post.type === 'video' 
+                    ? `<video src="${post.src}" class="media-item" controls></video>` 
+                    : `<img src="${post.src}" class="media-item">`;
+
+                card.innerHTML = `
+                    <div class="card-actions">
+                        <button class="btn-small btn-edit" onclick="triggerVibrate(); openEditModal(${post.id})">✏️</button>
+                        <button class="btn-small btn-delete" onclick="triggerVibrate(); deletePost(${post.id})">🗑️</button>
+                    </div>
+                    ${mediaHTML}
+                    <p>${post.text}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderMemories() {
+            const container = document.getElementById('memoriesList');
+            container.innerHTML = '';
+            if(memories.length === 0) {
+                container.innerHTML = '<p style="opacity:0.6;">لا توجد ذكريات مضافة حتى الآن.. إضغط على إضافة ذكرى 💖</p>';
+                return;
+            }
+            memories.forEach(mem => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `
+                    <button class="btn-small btn-delete" style="position:absolute; left:10px; top:10px;" onclick="triggerVibrate(); deleteMemory(${mem.id})">🗑️</button>
+                    <span class="memory-date">📅 ${mem.date}</span>
+                    <div class="memory-title">${mem.title}</div>
+                    <div class="memory-text">${mem.text}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function saveMemory() {
+            triggerVibrate();
+            const title = document.getElementById('memTitle').value;
+            const date = document.getElementById('memDate').value;
+            const text = document.getElementById('memText').value;
+
+            if(!title || !text) {
+                alert('يرجى ملء كافة خانات الذكرى!');
+                return;
+            }
+
+            const newMem = { id: Date.now(), title, date: date || 'بدون تاريخ', text };
+            memories.unshift(newMem);
+            localStorage.setItem('siteMemories', JSON.stringify(memories));
+            renderMemories();
+            closeModal('addMemoryModal');
+            document.getElementById('memTitle').value = '';
+            document.getElementById('memDate').value = '';
+            document.getElementById('memText').value = '';
+        }
+
+        function deleteMemory(id) {
+            if(confirm('هل أنت متأكد من حذف هذه الذكرى؟')) {
+                memories = memories.filter(m => m.id !== id);
+                localStorage.setItem('siteMemories', JSON.stringify(memories));
+                renderMemories();
+            }
+        }
+
+        function toggleMusic() {
+            triggerVibrate();
+            if (audio.paused) {
+                audio.play().then(() => {
+                    playBtn.innerText = "⏸";
+                }).catch(err => {
+                    console.log("إذن الصوت مطلوب من المتصفح");
+                });
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
+            }
+        }
+
+        function checkPass() {
+            triggerVibrate();
+            const pass = document.getElementById('passInput').value;
+            if(pass.toLowerCase() === settings.pass.toLowerCase()) {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    document.getElementById('adminBar').style.display = 'flex';
+                    audio.play().then(() => {
+                        playBtn.innerText = "⏸";
+                    }).catch(e => {
+                        console.log("تشغيل الصوت متوقف من المتصفح");
+                    });
+                }, 800);
+            } else {
+                alert('كلمة السر غلط يا روحي ركزي 😂');
+            }
+        }
+
+        function createHeart() {
+            const container = document.getElementById('hearts');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = settings.floatingEmoji || '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 10 + 15 + 'px';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const startDate = new Date(settings.startDate).getTime();
+            const diff = now - startDate;
+            if(diff < 0) return;
+
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerHTML = `
+                <div class="counter-item"><span class="counter-num">${years}</span>سنة</div>
+                <div class="counter-item"><span class="counter-num">${months}</span>شهر</div>
+                <div class="counter-item"><span class="counter-num">${days}</span>يوم</div>
+                <div class="counter-item"><span class="counter-num">${hours}</span>ساعة</div>
+                <div class="counter-item"><span class="counter-num">${mins}</span>دقيقة</div>
+                <div class="counter-item"><span class="counter-num">${secs}</span>ثانية</div>
+            `;
+        }, 1000);
+
+        function openModal(id) { 
+            if(id === 'settingsModal') {
+                document.getElementById('setPass').value = settings.pass;
+                document.getElementById('setLoginTitle').value = settings.loginTitle || '';
+                document.getElementById('setLoginSubTitle').value = settings.loginSubTitle || '';
+                document.getElementById('setLoginBtnText').value = settings.loginBtnText || '';
+                document.getElementById('setName').value = settings.name;
+                document.getElementById('setTopBadgeText').value = settings.topBadgeText || '';
+                document.getElementById('setMainPhotoSubtext').value = settings.mainPhotoSubtext || '';
+                document.getElementById('setFirstMeetTitle').value = settings.firstMeetTitle || '';
+                document.getElementById('setDate').value = settings.startDate;
+                document.getElementById('setCounterTitle').value = settings.counterTitle || '';
+                document.getElementById('setCounterSubtext').value = settings.counterSubtext || '';
+                document.getElementById('setPhraseSectionTitle').value = settings.phraseSectionTitle || '';
+                document.getElementById('setFlipGridTitle').value = settings.flipGridTitle || '';
+                document.getElementById('setPopupBtnText').value = settings.popupBtnText || '';
+                document.getElementById('setImgUrl').value = settings.mainImg;
+                document.getElementById('setMsg').value = settings.popupMsg;
+                document.getElementById('setSongTitle').value = settings.songTitle || '';
+                document.getElementById('setSongArtist').value = settings.songArtist || '';
+                document.getElementById('setSongSrc').value = settings.songSrc || '';
+                document.getElementById('setPrimaryBg').value = settings.primaryBg || '#1a0b2e';
+                document.getElementById('setAccentColor').value = settings.accentColor || '#ff4d6d';
+                document.getElementById('setFloatingEmoji').value = settings.floatingEmoji || '❤️';
+
+                renderSettingsFlipCards();
+                renderSettingsPhrases();
+            }
+            if(id === 'memoriesModal') renderMemories();
+            document.getElementById(id).style.display = 'flex'; 
+        }
+        
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function renderSettingsFlipCards() {
+            const container = document.getElementById('settingsFlipCardsList');
+            container.innerHTML = '';
+            flipCards.forEach((c, index) => {
+                const div = document.createElement('div');
+                div.className = 'item-row';
+                div.innerHTML = `
+                    <input type="text" value="${c.front}" placeholder="الوجه" onchange="flipCards[${index}].front=this.value" style="width:30%;">
+                    <input type="text" value="${c.back}" placeholder="الظهر" onchange="flipCards[${index}].back=this.value" style="width:60%;">
+                    <button class="btn-small btn-delete" onclick="triggerVibrate(); removeSettingsFlipCard(${index})">🗑️</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addSettingsFlipCard() {
+            flipCards.push({ id: Date.now(), front: (flipCards.length + 1).toString(), back: 'نص جديد' });
+            renderSettingsFlipCards();
+        }
+
+        function removeSettingsFlipCard(index) {
+            flipCards.splice(index, 1);
+            renderSettingsFlipCards();
+        }
+
+        function renderSettingsPhrases() {
+            const container = document.getElementById('settingsPhrasesList');
+            container.innerHTML = '';
+            phrases.forEach((p, index) => {
+                const div = document.createElement('div');
+                div.className = 'item-row';
+                div.innerHTML = `
+                    <input type="text" value="${p}" onchange="phrases[${index}]=this.value" style="width:85%;">
+                    <button class="btn-small btn-delete" onclick="triggerVibrate(); removeSettingsPhrase(${index})">🗑️</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addSettingsPhrase() {
+            phrases.push('عبارة جديدة ♡');
+            renderSettingsPhrases();
+        }
+
+        function removeSettingsPhrase(index) {
+            phrases.splice(index, 1);
+            renderSettingsPhrases();
+        }
+
+        function saveNewPost() {
+            triggerVibrate();
+            const fileInput = document.getElementById('mediaInput');
+            const caption = document.getElementById('captionInput').value;
+
+            if (fileInput.files.length === 0) {
+                alert('الرجاء اختيار صورة أو فيديو أولاً!');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const newPost = {
+                    id: Date.now(),
+                    type: file.type.startsWith('video') ? 'video' : 'image',
+                    src: e.target.result,
+                    text: caption
+                };
+                posts.unshift(newPost);
+                localStorage.setItem('sitePosts', JSON.stringify(posts));
+                renderPosts();
+                closeModal('addModal');
+                document.getElementById('captionInput').value = '';
+                fileInput.value = '';
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function openEditModal(id) {
+            const post = posts.find(p => p.id === id);
+            if(post) {
+                document.getElementById('editPostId').value = post.id;
+                document.getElementById('editCaptionInput').value = post.text;
+                openModal('editPostModal');
+            }
+        }
+
+        function updatePost() {
+            triggerVibrate();
+            const id = parseInt(document.getElementById('editPostId').value);
+            const text = document.getElementById('editCaptionInput').value;
+            posts = posts.map(p => p.id === id ? { ...p, text: text } : p);
+            localStorage.setItem('sitePosts', JSON.stringify(posts));
+            renderPosts();
+            closeModal('editPostModal');
+        }
+
+        function deletePost(id) {
+            if(confirm('هل انت أصلك متأكد انك عاوز تحذف الكارت ده؟')) {
+                posts = posts.filter(p => p.id !== id);
+                localStorage.setItem('sitePosts', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+
+        function saveSettings() {
+            triggerVibrate();
+            const imgFileInput = document.getElementById('setImgFile');
+            const songFileInput = document.getElementById('setSongFile');
+
+            const processSave = () => {
+                settings.pass = document.getElementById('setPass').value || settings.pass;
+                settings.loginTitle = document.getElementById('setLoginTitle').value;
+                settings.loginSubTitle = document.getElementById('setLoginSubTitle').value;
+                settings.loginBtnText = document.getElementById('setLoginBtnText').value;
+                settings.name = document.getElementById('setName').value || settings.name;
+                settings.topBadgeText = document.getElementById('setTopBadgeText').value;
+                settings.mainPhotoSubtext = document.getElementById('setMainPhotoSubtext').value;
+                settings.firstMeetTitle = document.getElementById('setFirstMeetTitle').value;
+                settings.startDate = document.getElementById('setDate').value || settings.startDate;
+                settings.counterTitle = document.getElementById('setCounterTitle').value;
+                settings.counterSubtext = document.getElementById('setCounterSubtext').value;
+                settings.phraseSectionTitle = document.getElementById('setPhraseSectionTitle').value;
+                settings.flipGridTitle = document.getElementById('setFlipGridTitle').value;
+                settings.popupBtnText = document.getElementById('setPopupBtnText').value;
+                settings.popupMsg = document.getElementById('setMsg').value || settings.popupMsg;
+
+                settings.songTitle = document.getElementById('setSongTitle').value;
+                settings.songArtist = document.getElementById('setSongArtist').value;
+
+                settings.primaryBg = document.getElementById('setPrimaryBg').value;
+                settings.accentColor = document.getElementById('setAccentColor').value;
+                settings.floatingEmoji = document.getElementById('setFloatingEmoji').value || '❤️';
+
+                localStorage.setItem('siteSettings', JSON.stringify(settings));
+                localStorage.setItem('siteFlipCards', JSON.stringify(flipCards));
+                localStorage.setItem('sitePhrases', JSON.stringify(phrases));
+
+                applySettings();
+                closeModal('settingsModal');
+                alert('تم حفظ كافة الإعدادات بنجاح!');
+            };
+
+            const promises = [];
+
+            if (imgFileInput.files.length > 0) {
+                const imgPromise = new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        settings.mainImg = e.target.result;
+                        resolve();
+                    };
+                    reader.readAsDataURL(imgFileInput.files[0]);
+                });
+                promises.push(imgPromise);
+            } else if (document.getElementById('setImgUrl').value) {
+                settings.mainImg = document.getElementById('setImgUrl').value;
+            }
+
+            if (songFileInput.files.length > 0) {
+                const songPromise = new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        settings.songSrc = e.target.result;
+                        resolve();
+                    };
+                    reader.readAsDataURL(songFileInput.files[0]);
+                });
+                promises.push(songPromise);
+            } else if (document.getElementById('setSongSrc').value) {
+                settings.songSrc = document.getElementById('setSongSrc').value;
+            }
+
+            if (promises.length > 0) {
+                Promise.all(promises).then(processSave);
+            } else {
+                processSave();
+            }
+        }
+
+        applySettings();
+        renderPosts();
+    </script>
+</body>
+</html>
